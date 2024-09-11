@@ -6,6 +6,10 @@
   "engines": {
     "vscode": "^1.93.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Maximilian560/RG_Extens.git"
+  },
   "categories": [
     "Other"
   ],
