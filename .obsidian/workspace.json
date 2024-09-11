@@ -1,0 +1,163 @@
+{
+  "main": {
+    "id": "0c9453ef848edef0",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff249a8706ae4eee",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5f756f5d6493046d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ea0c9c1a995f5391",
+    "type": "split",
+    "children": [
+      {
+        "id": "4595e57b708f7721",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b13f65b43667715c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "d93cab7a207fea5e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "647b0462c36155d7",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d39df41b9c4cd200",
+    "type": "split",
+    "children": [
+      {
+        "id": "5c90a99ff54c0b25",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "58541e32dec97403",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "afef0475db2cc822",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "331d5f4ae3a4b8d2",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "4d3c75e435b7cba4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Меню быстрого перехода": false,
+      "graph:Граф": false,
+      "canvas:Создать новый холст": false,
+      "daily-notes:Сегодняшняя заметка": false,
+      "templates:Вставить шаблон": false,
+      "command-palette:Открыть палитру команд": false
+    }
+  },
+  "active": "5f756f5d6493046d",
+  "lastOpenFiles": [
+    "test/test.exe",
+    "test/main.cpp",
+    "src/extension.ts",
+    "out/extensionBREAK.js",
+    "out/extensionBREAK.js.map",
+    "src/extensionBREAK.ts",
+    "out/extension2 copy.js",
+    "out/extension2 copy.js.map",
+    "src/extension2 copy.ts",
+    "out/extension2.js",
+    "out/extension2.js.map"
+  ]
+}

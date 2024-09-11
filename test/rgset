@@ -1,0 +1,6 @@
+name = test
+source = main.cpp
+bit = 64
+run = 64
+consol
+utf

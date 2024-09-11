@@ -1,0 +1,17 @@
+{
+  "scopeName": "source.rgset",
+  "patterns": [
+    {
+      "name": "keyword.other.rgset",
+      "match": "\\b(clear|createlib|otherCMD|consol|debug|shared|static|utf|asm)\\b"
+    },
+    {
+      "name": "variable.other.rgset",
+      "match": "\\b(name|name32|bit|resource|source|run|compilator|compilator32|libs|libs32|includes|includes32|flags|flags32|link|link32|extension)\\b"
+    },
+    {
+      "name": "support.variable.rgset",
+      "match": "\\{(NAME|NAME32|BIT|RESOURCE|SOURCE|RUN|COMPILATOR|COMPILATOR32|LIBS|LIBS32|INCLUDES|INCLUDES32|FLAGS|FLAGS32|LINK|LINK32|COMPILATOR_FOL|COMPILATOR_FOL32|PROJECT_FOL|RINEGINE_FOL)\\}"
+    }
+  ]
+}
