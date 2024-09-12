@@ -1,4 +1,5 @@
 {
+  "publisher": "maxsimilian560",
   "name": "rg-extens",
   "displayName": "RG_Extens",
   "description": "Extension for the Rinegine engine. Adds syntax for core engine files such as rgset and rgobj. It also helps to configure VS code to work correctly",
