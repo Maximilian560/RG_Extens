@@ -8,7 +8,7 @@
 ## Добро пожаловать на главную страницу расширения для работы с движком [Rinegine](https://github.com/Maximilian560/Rinegine)!
 
 Данное расширение необходимо только тем, кто работает с движком [Rinegine](https://github.com/Maximilian560/Rinegine)
-
+Сам движок как и расширение работает только на Windows! Возможно на линукс с Wine, но это не проверялось. Вопросы по Wine рассмотрены не будут!
 ### Что умеет:
 Данное расширение упрощает сборку программ с помощью [Rinegine](https://github.com/Maximilian560/Rinegine) 
 * После установки скорее всего вас потребуют указать путь до движка [Rinegine](https://github.com/Maximilian560/Rinegine), надо указать включая папку [Rinegine](https://github.com/Maximilian560/Rinegine), иначе будет ошибка.

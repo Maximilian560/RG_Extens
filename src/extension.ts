@@ -1,18 +1,95 @@
 import * as vscode from "vscode";
-import * as path from "path";
+//import * as path from "path";
 
 //let globalContext: vscode.ExtensionContext;
 
+/*
+${config:rg-extens.rineginePath}\\
+${config:rg-extens.rineginePath}\\other\\GLFW\\64\\include
+${config:rg-extens.rineginePath}\\other\\FreeType\\64\\include\\freetype2
+${config:rg-extens.rineginePath}\\other\\GLAD\\33\\include
+${config:rg-extens.rineginePath}\\other\\stb_master 
+${config:rg-extens.rineginePath}\\other\\OpenAL\\64\\include 
+${config:rg-extens.rineginePath}\\other\\CURL\\64\\include
+${config:rg-extens.rineginePath}\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++
+${config:rg-extens.rineginePath}\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++\\x86_64-w64-mingw32
+*/
+async function updateIncludePath(rgpath = "") {
+  const config = vscode.workspace.getConfiguration("C_Cpp");
+  let includePaths = config.get<string[]>("default.includePath") || [];
+  //let includePaths = rgpath;
+  if(!rgpath){
+    vscode.window.showInformationMessage(`Error Code 404`);
+    return;
+  }
+  const rineginePath = "${config:rg-extens.rineginePath}";
+  vscode.window.showInformationMessage(
+    `Попытка добавить необходимые пути заголовочных фалов.`
+  );
+
+  // Получение настроек C/C++ расширения
+
+  // Получаем текущий массив includePath
+
+  // Путь, который нужно добавить
+
+  // Проверяем, есть ли путь уже в настройках
+  let countReady = 0;
+  let paths = [
+  rineginePath+'\\',
+  rineginePath+'\\other\\GLFW\\64\\include',
+  rineginePath+'\\other\\FreeType\\64\\include\\freetype2',
+  rineginePath+'\\other\\GLAD\\33\\include',
+  rineginePath+'\\other\\stb_master ',
+  rineginePath+'\\other\\OpenAL\\64\\include ',
+  rineginePath+'\\other\\CURL\\64\\include',
+  rineginePath+'\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++',
+  rineginePath+'\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++\\x86_64-w64-mingw32'];
+
+  for(let i = 0; i<paths.length; i++){
+    if (!includePaths.includes(paths[i]) ){
+    includePaths.push(paths[i]);
+    }else{countReady++;}
+  }
+  if(countReady == paths.length){
+    vscode.window.showInformationMessage("Все пути уже были добавлены!");
+    return;
+  }else if(countReady == 0){
+    vscode.window.showInformationMessage("Все необходимые пути добавлены!");
+  }else if(countReady>0&&countReady<paths.length){
+    vscode.window.showInformationMessage("Было добавлено "+(paths.length-countReady)+"/"+paths.length+" путей, остальные уже были добавлены.");
+  }
+    await config.update(
+      "default.includePath",
+      includePaths,
+      vscode.ConfigurationTarget.Global
+    );
+
+    vscode.window.showInformationMessage(
+      `Пути успешно настроенны!.`
+    );
+    
+    // Обновляем настройку includePath
+    
+  
+}
+
 export function activate(context: vscode.ExtensionContext) {
-  //globalContext = context;
-  // Проверка на наличие пути к движку Rinegine при запуске расширения
   const rineginePath = vscode.workspace
     .getConfiguration("rg-extens")
     .get<string>("rineginePath");
 
+  //globalContext = context;
+  // Проверка на наличие пути к движку Rinegine при запуске расширения
+  /*const rineginePath = vscode.workspace
+    .getConfiguration("rg-extens")
+    .get<string>("rineginePath");*/
+
   // Проверка пути при активации расширения
   if (!rineginePath || !isValidRineginePath(rineginePath)) {
     showRineginePathNotification(); // Показать уведомление о том, что путь не указан
+  } else {
+    updateIncludePath(rineginePath);
   }
 
   // Команда для ручного изменения пути к движку
@@ -97,23 +174,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(debugDeleteRinegineVariable);
 }
 
-// Функция для проверки пути к движку при запуске
 
-// Функция для показа назойливого уведомления
-/*function showRineginePathNotification() {
-    const notification = vscode.window.showErrorMessage('Путь до Rinegine не определён или указан неверно. Укажите путь до движка.', 'Определить');
-
-    notification.then(async (selection) => {
-        if (selection === 'Определить') {
-            await promptForRineginePath();
-        }
-
-        const rineginePath = vscode.workspace.getConfiguration().get('rg-extens.rineginePath') as string;
-        if (!isValidRineginePath(rineginePath)) {
-            showRineginePathNotification(); // Если путь всё ещё неверен, показать уведомление снова
-        }
-    });
-}*/
 function showRineginePathNotification() {
   // Вызываем всплывающее окно с предложением выбрать путь
   const message =
@@ -124,74 +185,8 @@ function showRineginePathNotification() {
       promptForRineginePath();
     }
   });
+  updateIncludePath();
 }
-// Функция для запроса пути к движку через проводник
-/*async function promptForRineginePath() {
-    const selectedFolder = await vscode.window.showOpenDialog({
-        canSelectFolders: true,
-        canSelectFiles: false,
-        canSelectMany: false,
-        openLabel: 'Выберите папку Rinegine',
-    });
-
-    if (selectedFolder && selectedFolder[0]) {
-        const rineginePath = selectedFolder[0].fsPath;
-        if (isValidRineginePath(rineginePath)) {
-            await vscode.workspace.getConfiguration().update('rg-extens.rineginePath', rineginePath, vscode.ConfigurationTarget.Global);
-            vscode.window.showInformationMessage(`Путь до Rinegine сохранен: ${rineginePath}`);
-        } else {
-            vscode.window.showErrorMessage('Выбранный путь должен заканчиваться на \\Rinegine\\ или \\Rinegine.');
-            showRineginePathNotification(); // Показать уведомление заново
-        }
-    } else {
-        const manualPath = await vscode.window.showInputBox({
-            prompt: "Введите путь до движка Rinegine (должен заканчиваться на \\Rinegine\\ или \\Rinegine)",
-            value: process.env['RINEGINE'] || ''
-        });
-
-        if (manualPath && isValidRineginePath(manualPath)) {
-            await vscode.workspace.getConfiguration().update('rg-extens.rineginePath', manualPath, vscode.ConfigurationTarget.Global);
-            vscode.window.showInformationMessage(`Путь до Rinegine сохранен: ${manualPath}`);
-        } else {
-            vscode.window.showErrorMessage('Указанный путь неверен. Путь должен заканчиваться на \\Rinegine\\ или \\Rinegine.');
-            showRineginePathNotification(); // Показать уведомление заново
-        }
-    }
-}*/
-/*
-async function promptForRineginePath() {
-	// Запрашиваем путь у пользователя
-	const selectedFolder = await vscode.window.showOpenDialog({
-		canSelectFolders: true,
-		canSelectFiles: false,
-		canSelectMany: false,
-		openLabel: 'Выберите папку Rinegine',
-});
-
-	// Проверяем, что путь указан
-		if (selectedFolder&&selectedFolder[0]) {
-      const manualPath = selectedFolder[0].fsPath;
-				if (isValidRineginePath(manualPath)) {
-					try {
-							// Обновляем конфигурацию
-							await vscode.workspace.getConfiguration('rg-extens').update('rineginePath', manualPath, vscode.ConfigurationTarget.Global);
-							vscode.window.showInformationMessage(`Путь до Rinegine сохранен: ${manualPath}`);
-					} catch (error) {
-							if (error instanceof Error) {
-									vscode.window.showErrorMessage(`Ошибка сохранения пути: ${error.message}`);
-							} else {
-									vscode.window.showErrorMessage('Неизвестная ошибка при сохранении пути.');
-							}
-					}
-			} else {
-					vscode.window.showErrorMessage('Указанный путь неверен. Путь должен заканчиваться на \\Rinegine\\ или \\Rinegine.');
-					showRineginePathNotification(); // Показать уведомление заново
-			}
-	} else {
-			vscode.window.showErrorMessage('Путь не был указан. Пожалуйста, введите корректный путь.');
-			showRineginePathNotification(); // Показать уведомление заново
-	}
-}*/
 
 async function promptForRineginePath() {
   // Запрашиваем путь у пользователя
@@ -219,6 +214,8 @@ async function promptForRineginePath() {
         vscode.window.showInformationMessage(
           `Путь до Rinegine сохранен: ${manualPath}`
         );
+        updateIncludePath("rineginePath");
+
       } catch (error) {
         // Обрабатываем ошибку сохранения
         if (error instanceof Error) {
