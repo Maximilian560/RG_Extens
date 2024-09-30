@@ -14,18 +14,36 @@ ${config:rg-extens.rineginePath}\\other\\CURL\\64\\include
 ${config:rg-extens.rineginePath}\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++
 ${config:rg-extens.rineginePath}\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++\\x86_64-w64-mingw32
 */
+function showTemporaryMessage(message: string, duration: number) {
+  // Показать информационное сообщение
+  const messageItem = vscode.window.showInformationMessage(message);
+
+  // Установить таймер для автоматического закрытия
+  setTimeout(() => {
+    if (messageItem) {
+      messageItem.then(item => {
+        if (item) {
+          // Закрыть сообщение, если оно всё ещё отображается
+          vscode.commands.executeCommand('workbench.action.closeMessages');
+        }
+      });
+    }
+  }, duration);
+}
+
 async function updateIncludePath(rgpath = "") {
+  vscode.window.showInformationMessage(
+    `Попытка добавить необходимые пути заголовочных фалов.`
+  );
   const config = vscode.workspace.getConfiguration("C_Cpp");
   let includePaths = config.get<string[]>("default.includePath") || [];
   //let includePaths = rgpath;
-  if(!rgpath){
+  if (!rgpath) {
     vscode.window.showInformationMessage(`Error Code 404`);
     return;
   }
   const rineginePath = "${config:rg-extens.rineginePath}";
-  vscode.window.showInformationMessage(
-    `Попытка добавить необходимые пути заголовочных фалов.`
-  );
+
 
   // Получение настроек C/C++ расширения
 
@@ -36,42 +54,42 @@ async function updateIncludePath(rgpath = "") {
   // Проверяем, есть ли путь уже в настройках
   let countReady = 0;
   let paths = [
-  rineginePath+'\\',
-  rineginePath+'\\other\\GLFW\\64\\include',
-  rineginePath+'\\other\\FreeType\\64\\include\\freetype2',
-  rineginePath+'\\other\\GLAD\\33\\include',
-  rineginePath+'\\other\\stb_master ',
-  rineginePath+'\\other\\OpenAL\\64\\include ',
-  rineginePath+'\\other\\CURL\\64\\include',
-  rineginePath+'\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++',
-  rineginePath+'\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++\\x86_64-w64-mingw32'];
+    rineginePath + '\\',
+    rineginePath + '\\other\\GLFW\\64\\include',
+    rineginePath + '\\other\\FreeType\\64\\include\\freetype2',
+    rineginePath + '\\other\\GLAD\\33\\include',
+    rineginePath + '\\other\\stb_master ',
+    rineginePath + '\\other\\OpenAL\\64\\include ',
+    rineginePath + '\\other\\CURL\\64\\include',
+    rineginePath + '\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++',
+    rineginePath + '\\compiler\\mingw64\\lib\\gcc\\x86_64-w64-mingw32\\13.2.0\\include\\c++\\x86_64-w64-mingw32'];
 
-  for(let i = 0; i<paths.length; i++){
-    if (!includePaths.includes(paths[i]) ){
-    includePaths.push(paths[i]);
-    }else{countReady++;}
+  for (let i = 0; i < paths.length; i++) {
+    if (!includePaths.includes(paths[i])) {
+      includePaths.push(paths[i]);
+    } else { countReady++; }
   }
-  if(countReady == paths.length){
+  if (countReady == paths.length) {
     vscode.window.showInformationMessage("Все пути уже были добавлены!");
     return;
-  }else if(countReady == 0){
+  } else if (countReady == 0) {
     vscode.window.showInformationMessage("Все необходимые пути добавлены!");
-  }else if(countReady>0&&countReady<paths.length){
-    vscode.window.showInformationMessage("Было добавлено "+(paths.length-countReady)+"/"+paths.length+" путей, остальные уже были добавлены.");
+  } else if (countReady > 0 && countReady < paths.length) {
+    vscode.window.showInformationMessage("Было добавлено " + (paths.length - countReady) + "/" + paths.length + " путей, остальные уже были добавлены.");
   }
-    await config.update(
-      "default.includePath",
-      includePaths,
-      vscode.ConfigurationTarget.Global
-    );
+  await config.update(
+    "default.includePath",
+    includePaths,
+    vscode.ConfigurationTarget.Global
+  );
 
-    vscode.window.showInformationMessage(
-      `Пути успешно настроенны!.`
-    );
-    
-    // Обновляем настройку includePath
-    
-  
+  vscode.window.showInformationMessage(
+    `Пути успешно настроенны!.`
+  );
+
+  // Обновляем настройку includePath
+
+
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -101,10 +119,32 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // Функция для запуска сборки в терминале
-  function runBuildCommand(command: string) {
+  /*function runBuildCommand(command: string) {
     const terminal = vscode.window.createTerminal("RG Build"); // Создаём новый терминал
     terminal.show(); // Показываем терминал
     terminal.sendText(command); // Отправляем команду на выполнение
+  }*/
+  function runBuildCommand(command: string) {
+
+
+    const terminalName = "RG Build";
+
+    // Ищем терминал с именем "RG Build"
+    let rgTerminal = vscode.window.terminals.find(term => term.name === terminalName);
+
+    // Если терминал не существует, создаем новый
+    if (!rgTerminal) {
+      rgTerminal = vscode.window.createTerminal(terminalName);
+      rgTerminal.show();
+      vscode.window.showInformationMessage(`Терминал ${terminalName} создан.`);
+    }
+
+    // Показываем терминал и выполняем команду
+    //rgTerminal.show();
+    //rgTerminal.sendText(`"${buildCommand}"`); // Выполняем команду в терминале
+    //rgTerminal.show(); // Показываем терминал
+    rgTerminal.sendText(command); // Отправляем команду на выполнение
+
   }
 
   // Команда для сборки 64-битной версии движка
@@ -129,6 +169,7 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }
   );
+  
 
   // Команда для сборки 32-битной версии движка
   let buildEngine32 = vscode.commands.registerCommand(
@@ -151,6 +192,7 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }
   );
+  
   let debugDeleteRinegineVariable = vscode.commands.registerCommand(
     "rg-extens.debugDeleteRinegineVariable",
     async () => {
@@ -275,4 +317,4 @@ function debugDeleteRinegineVariable() {
     globalContext.subscriptions.push(resetRineginePath);
   
 }*/
-export function deactivate() {}
+export function deactivate() { }

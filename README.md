@@ -1,9 +1,9 @@
-# RG_Extens <img alt="RG_Extens Version" src="https://img.shields.io/badge/RG_Extens-v0.0.3-green">  
+# RG_Extens <img alt="RG_Extens Version" src="https://img.shields.io/badge/RG_Extens-v0.0.4-green">  
 
-### Связь с разработчиком:  
+### Связь с разработчиком:  
 
-[<img alt="Telegram"        src="https://img.shields.io/badge/Rinemest-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=222222&link=https%3A%2F%2Ft.me%2Frinemest">](https://t.me/Rinemest)
-[<img alt="Telegram"        src="https://img.shields.io/badge/Rinegine-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=444444&link=https://t.me/Rinegine">](https://t.me/Rinegine)
+[<img alt="Telegram"        src="https://img.shields.io/badge/Rinemest-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=222222&link=https%3A%2F%2Ft.me%2Frinemest">](https://t.me/Rinemest)
+[<img alt="Telegram"        src="https://img.shields.io/badge/Rinegine-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=444444&link=https://t.me/Rinegine">](https://t.me/Rinegine)
 
 ## Добро пожаловать на главную страницу расширения для работы с движком [Rinegine](https://github.com/Maximilian560/Rinegine)!
 
@@ -14,8 +14,9 @@
 * После установки скорее всего вас потребуют указать путь до движка [Rinegine](https://github.com/Maximilian560/Rinegine), надо указать включая папку [Rinegine](https://github.com/Maximilian560/Rinegine), иначе будет ошибка.
 * После как укажите путь вы сможете собирать проекты одним сочетанием клавиш (но только после того, как вы создадите файл rgset с настройками проекта) <kbd>CTRL</kbd>+<kbd>F8</kbd>. Вы сможете изменить сочетание настройками самой VS code. По умолчанию для сборки используется сборщик 32 разрядный, но вы можете так же указать сочетание клавиш и для сборки 64 разрядным сборщиком.
 * При создании конфигурационного файла вам будут показываться подсказки переменных и функций. Для подробного описание введите `rgcmd -rg` или `rgcmd --rgset`
-* Вы так же можете вручную вызвать сборку командой нажав <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> и вписав в открывшееся окно Build, Будет несколько вариантов, `Build (64-bit)` и `Build (32-bit)`, можете выбрать любой.
+* Вы так же можете вручную вызвать сборку командой нажав <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> и вписав в открывшееся окно Build, будет несколько вариантов, `Build (64-bit)` и `Build (32-bit)`, можете выбрать любой.
+* Расширение будет проверять наличие путей include до движка и добавлять их в случае отсутствия  для всех возможных подсказок автозаполнения!
 ### Что планируется:
 * Подсветка других файлов использующих в [Rinegine](https://github.com/Maximilian560/Rinegine).
 * Более улучшенная подсветка синтаксиса в файлах [Rinegine](https://github.com/Maximilian560/Rinegine).
-* Более лучшая помощь от подсказок автозаполнения.
+* Более улучшенная помощь от подсказок автозаполнения.
