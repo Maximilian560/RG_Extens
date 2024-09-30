@@ -154,6 +154,8 @@ export function activate(context: vscode.ExtensionContext) {
       const rineginePath = vscode.workspace
         .getConfiguration()
         .get("rg-extens.rineginePath") as string;
+      vscode.commands.executeCommand("workbench.action.files.save");
+
       if (rineginePath && isValidRineginePath(rineginePath)) {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (workspaceFolders) {
@@ -178,6 +180,8 @@ export function activate(context: vscode.ExtensionContext) {
       const rineginePath = vscode.workspace
         .getConfiguration()
         .get("rg-extens.rineginePath") as string;
+      vscode.commands.executeCommand("workbench.action.files.save");
+
       if (rineginePath && isValidRineginePath(rineginePath)) {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (workspaceFolders) {

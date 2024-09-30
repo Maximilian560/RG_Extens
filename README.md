@@ -1,4 +1,4 @@
-# RG_Extens <img alt="RG_Extens Version" src="https://img.shields.io/badge/RG_Extens-v0.0.5-green">  
+# RG_Extens <img alt="RG_Extens Version" src="https://img.shields.io/badge/RG_Extens-v0.0.6-green">  
 
 ### Связь с разработчиком:  
 
